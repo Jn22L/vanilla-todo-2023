@@ -1,10 +1,11 @@
-function init() {
-  const todos = [
-    { title: "종합소득세 신고", content: "5월말까지 신고하기" },
-    { title: "전기세 납부", content: "납부기한 5일" },
-    { title: "등산", content: "주말에" },
-  ];
+const fetchData = async () => {
+  const url = `https://jsonplaceholder.typicode.com/posts`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+};
 
+const renderData = (todos) => {
   const divList = document.querySelector(".list-bg");
 
   todos.map((todo) => {
@@ -24,7 +25,8 @@ function init() {
     spanComplete.textContent = "✔️";
     spanEdit.textContent = "✏️";
     spanDelete.textContent = "🗑️";
-    pContent.textContent = todo.content;
+    //pContent.textContent = todo.content;
+    pContent.textContent = todo.body;
 
     divTitleLeft.appendChild(h4Title);
     divTitleRight.appendChild(spanComplete);
@@ -44,12 +46,16 @@ function init() {
       }
     });
     spanEdit.addEventListener("click", (event) => {
-      console.log("수정");
+      console.log("update");
     });
     spanDelete.addEventListener("click", (event) => {
-      console.log("삭제");
+      console.log("delete");
     });
   });
+};
+
+function init() {
+  fetchData().then(renderData);
 }
 
 init();
