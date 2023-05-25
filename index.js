@@ -1,5 +1,5 @@
 const fetchData = async () => {
-  const url = `https://jsonplaceholder.typicode.com/posts`;
+  const url = `http://lighthappyj.net/paget2l6/select-hjboard?SEQ=`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
@@ -21,12 +21,11 @@ const renderData = (todos) => {
 
     divListItem.setAttribute("class", "list-item");
     divTitleContainer.setAttribute("class", "list-item-title-container");
-    h4Title.textContent = todo.title;
+    h4Title.textContent = todo.TITLE;
     spanComplete.textContent = "✔️";
     spanEdit.textContent = "✏️";
     spanDelete.textContent = "🗑️";
-    //pContent.textContent = todo.content;
-    pContent.textContent = todo.body;
+    pContent.textContent = todo.CONTENT;
 
     divTitleLeft.appendChild(h4Title);
     divTitleRight.appendChild(spanComplete);
