@@ -204,7 +204,9 @@ function renderWritePage(obj) {
       return;
     }
 
-    saveData([{ IUD_FLAG: "I", TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value }]);
+    let iudFlag = inputSEQ.value > 0 ? "U" : "I";
+    console.log("iudFlag:", iudFlag);
+    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value }]);
   });
 }
 

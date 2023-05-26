@@ -45,6 +45,8 @@ app.get("/paget3l4/select-hjboard", (req, res) => {
   var param = { SEQ: req.query.SEQ, COMPLETE_YN: req.query.COMPLETE_YN };
   var format = { language: "sql", indent: "  " };
   var query = mybatisMapper.getStatement("paget3l4", "selectHjBoard", param, format);
+  
+ 
   dbconn.query(query, (error, rows) => {
     if (error) throw error;
     res.send(rows);
@@ -84,7 +86,8 @@ app.post("/paget3l4/save-hjboard", function (req, res) {
     let TITLE = row.TITLE;
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
-    let sql = `INSERT INTO HJ_BOARD(BOARD_ID, TITLE, CONTENT, USER_ID, CREATE_DT) VALUES('T3L4', '${TITLE}', '${CONTENT}', 'njlee', ${"NOW()"})`;
+	let IMG_URL = row.IMG_URL;
+    let sql = `INSERT INTO HJ_BOARD(BOARD_ID, TITLE, CONTENT, USER_ID, CREATE_DT, IMG_URL) VALUES('T3L4', '${TITLE}', '${CONTENT}', 'njlee', ${"NOW()"}, '${IMG_URL}')`;
     dbconn.query(sql, function (err, result) {
       if (err) {
         sqlErrMsg.push({ sqlMessage: err.sqlMessage, sql: err.sql });
@@ -98,7 +101,8 @@ app.post("/paget3l4/save-hjboard", function (req, res) {
     let TITLE = row.TITLE;
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
-    let sql = `UPDATE HJ_BOARD SET TITLE = '${TITLE}', CONTENT = '${CONTENT}' , USER_ID = '${USER_ID}' , CREATE_DT = ${"NOW()"} WHERE SEQ = ${SEQ}`;
+	let IMG_URL = row.IMG_URL;
+    let sql = `UPDATE HJ_BOARD SET TITLE = '${TITLE}', CONTENT = '${CONTENT}' , USER_ID = 'njlee' , CREATE_DT = ${"NOW()"}, IMG_URL = '${IMG_URL}' WHERE SEQ = ${SEQ}`;
     dbconn.query(sql, function (err, result) {
       if (err) {
         sqlErrMsg.push({ sqlMessage: err.sqlMessage, sql: err.sql });

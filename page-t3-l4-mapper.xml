@@ -17,7 +17,8 @@
  			            END
                 , DATE_FORMAT(A.CREATE_DT,' %H:%i')
           ) AS CREATE_DT,
-		 A.COMPLETE_DATE
+		 A.COMPLETE_DATE,
+		 A.IMG_URL
     FROM HJ_BOARD A, HJ_USER B
    WHERE 1=1   
      AND BOARD_ID = 'T3L4'
