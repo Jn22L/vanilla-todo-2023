@@ -161,24 +161,25 @@ function renderWritePage(obj) {
   removeAllChildNodes(document.querySelector(".list-bg"));
   document.querySelector("#write-form").style.display = "block";
 
+  const inputSEQ = document.querySelector("input[name='SEQ']");
+  const inputTITLE = document.querySelector("input[name='TITLE']");
+  const inputCONTENT = document.querySelector("input[name='CONTENT']");
+
   if (obj) {
-    document.querySelector("input[name='SEQ']").value = obj.SEQ;
-    document.querySelector("input[name='TITLE']").value = obj.TITLE;
-    document.querySelector("input[name='CONTENT']").value = obj.CONTENT;
+    inputSEQ.value = obj.SEQ;
+    inputTITLE.value = obj.TITLE;
+    inputCONTENT.value = obj.CONTENT;
   } else {
-    document.querySelector("input[name='SEQ']").value = "";
-    document.querySelector("input[name='TITLE']").value = "";
-    document.querySelector("input[name='CONTENT']").value = "";
+    inputSEQ.value = "";
+    inputTITLE.value = "";
+    inputCONTENT.value = "";
   }
 
   const btnSave = document.querySelector("#btn-save");
   if (btnSave.classList.contains("once1")) return; // 이벤트핸들러 중복등록 체크
   btnSave.classList.add("once1");
   btnSave.addEventListener("click", (e) => {
-    const TITLE = document.querySelector("input[name='TITLE']").value;
-    const CONTENT = document.querySelector("input[name='CONTENT']").value;
-    const createdRows = [{ IUD_FLAG: "I", TITLE, CONTENT }];
-    saveData(createdRows);
+    saveData([{ IUD_FLAG: "I", TITLE: inputTITLE.value, CONTENT: inputCONTENT.value }]);
   });
 }
 
