@@ -21,10 +21,8 @@ const fetchData = async (opt) => {
 const renderData = (todos) => {
   const divList = document.querySelector(".list-bg");
   removeAllChildNodes(divList);
-  document.querySelector("#write-form").style.display = "none";
-  document.querySelector("#detail-form").style.display = "none";
-
-  console.log(todos);
+  document.querySelector("#write-wrapper").style.display = "none";
+  document.querySelector("#detail-wrapper").style.display = "none";
 
   todos.map((todo) => {
     const divListItem = document.createElement("div");
@@ -151,8 +149,8 @@ function removeAllChildNodes(parent) {
 
 function renderDetailPage(obj) {
   removeAllChildNodes(document.querySelector(".list-bg"));
-  document.querySelector("#write-form").style.display = "none";
-  document.querySelector("#detail-form").style.display = "block";
+  document.querySelector("#write-wrapper").style.display = "none";
+  document.querySelector("#detail-wrapper").style.display = "block";
 
   document.querySelector("#detail-SEQ").textContent = obj.SEQ;
   document.querySelector("#detail-TITLE").textContent = obj.TITLE;
@@ -161,7 +159,7 @@ function renderDetailPage(obj) {
 
 function renderWritePage(obj) {
   removeAllChildNodes(document.querySelector(".list-bg"));
-  document.querySelector("#write-form").style.display = "block";
+  document.querySelector("#write-wrapper").style.display = "block";
 
   const inputSEQ = document.querySelector("input[name='SEQ']");
   const inputTITLE = document.querySelector("input[name='TITLE']");
@@ -181,6 +179,17 @@ function renderWritePage(obj) {
   if (btnSave.classList.contains("once1")) return; // 이벤트핸들러 중복등록 체크
   btnSave.classList.add("once1");
   btnSave.addEventListener("click", (e) => {
+    if (inputTITLE.value.trim() === "") {
+      alert("제목을 입력해 주세요.");
+      inputTITLE.focus();
+      return;
+    }
+    if (inputCONTENT.value.trim() === "") {
+      alert("내용을 입력해 주세요.");
+      inputCONTENT.focus();
+      return;
+    }
+
     saveData([{ IUD_FLAG: "I", TITLE: inputTITLE.value, CONTENT: inputCONTENT.value }]);
   });
 }
