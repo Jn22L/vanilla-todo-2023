@@ -58,22 +58,30 @@ const renderData = (todos) => {
       divListItem.style.background = "rgb(255, 165, 0)";
     }
 
+    // TITLE click event handler
     divTitleLeft.addEventListener("click", () => {
       renderDetailPage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT });
     });
 
+    // ✔️ click event handler
     spanComplete.addEventListener("click", (e) => {
+      let today;
       if (e.target.parentElement.parentElement.parentElement.style.background === "rgb(255, 165, 0)") {
         e.target.parentElement.parentElement.parentElement.style.background = "white";
+        today = "N";
       } else {
         e.target.parentElement.parentElement.parentElement.style.background = "rgb(255, 165, 0)";
+        today = new Date().toISOString().substring(0, 10).replace(/-/g, "");
       }
+      toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
     });
 
+    // ✏️ click event handler
     spanEdit.addEventListener("click", (event) => {
       renderWritePage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT });
     });
 
+    // 🗑️ click event handler
     spanDelete.addEventListener("click", (e) => {
       if (!confirm("삭제하시겠습니까?")) return;
       let seq = e.target.parentElement.parentElement.parentElement.dataset.seq;
@@ -100,6 +108,27 @@ const saveData = async (objArr) => {
   //       deletedRows: [ {...},{...} ...  ]
   // }
   const res = await fetch(`${HOST_NAME}/paget3l4/save-hjboard`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(saveJSON),
+  });
+
+  const resJSON = await res.json();
+  fetchData("TODO").then(renderData);
+};
+
+/**
+ * 완료처리 한다.
+ * @param {object} obj - {SEQ: 게시물번호, COMPLETE_DATE: 미완료(N) | 완료(오늘날짜(YYYYMMDD)) }
+ */
+const toggleComplete = async (obj) => {
+  const updatedRows = [{ SEQ: obj.SEQ, COMPLETE_DATE: obj.COMPLETE_DATE }];
+  const saveJSON = { modifiedRows: { updatedRows } };
+
+  const res = await fetch(`${HOST_NAME}/paget3l4/toggle-complete`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -149,7 +178,6 @@ function renderWritePage(obj) {
     const TITLE = document.querySelector("input[name='TITLE']").value;
     const CONTENT = document.querySelector("input[name='CONTENT']").value;
     const createdRows = [{ IUD_FLAG: "I", TITLE, CONTENT }];
-
     saveData(createdRows);
   });
 }
