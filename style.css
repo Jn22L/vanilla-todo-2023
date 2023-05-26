@@ -56,6 +56,12 @@ a {
   text-decoration: none;
   color: black;
 }
+.navbar span {
+  margin-right: 10px;
+  text-decoration: none;
+  color: black;
+}
+
 .logo {
   font-weight: bold;
 }
@@ -68,6 +74,7 @@ a {
 .dark-mode .navbar {
   background: #222;
 }
+
 .dark-mode .navbar a {
   color: white;
 }
