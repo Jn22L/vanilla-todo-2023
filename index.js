@@ -186,6 +186,7 @@ function init() {
   const topTodo = document.querySelector("#top-todo");
   const topComplete = document.querySelector("#top-complete");
   const topNew = document.querySelector("#top-new");
+  const topDarkmode = document.querySelector("#top-darkmode");
 
   topTodo.addEventListener("click", (event) => {
     fetchData("TODO").then(renderData);
@@ -197,6 +198,17 @@ function init() {
 
   topNew.addEventListener("click", (event) => {
     renderWritePage();
+  });
+
+  topDarkmode.addEventListener("click", (event) => {
+    const body = document.querySelector("body");
+    if (body.getAttribute("class", "dark-mode") === "dark-mode") {
+      body.removeAttribute("class");
+      topDarkmode.innerHTML = "🌙";
+    } else {
+      body.setAttribute("class", "dark-mode");
+      topDarkmode.innerHTML = "☀️";
+    }
   });
 
   topTodo.click();
