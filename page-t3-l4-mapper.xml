@@ -26,11 +26,15 @@
       AND A.SEQ = #{SEQ}
     </if>   
     <if test='COMPLETE_YN == "Y"'>
+	<![CDATA[ 
       AND COMPLETE_DATE < DATE_FORMAT(NOW() - INTERVAL 2 DAY,'%Y%m%d')
+	]]>
     </if>   
     <if test='COMPLETE_YN == "N"'>
+	<![CDATA[ 
       AND COMPLETE_DATE >= DATE_FORMAT(NOW() - INTERVAL 2 DAY,'%Y%m%d')
-    </if>                
+	]]>  
+    </if>   
    ORDER BY SEQ DESC
 </select>
 

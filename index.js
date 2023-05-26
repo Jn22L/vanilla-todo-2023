@@ -24,6 +24,8 @@ const renderData = (todos) => {
   document.querySelector("#write-form").style.display = "none";
   document.querySelector("#detail-form").style.display = "none";
 
+  console.log(todos);
+
   todos.map((todo) => {
     const divListItem = document.createElement("div");
     const divTitleContainer = document.createElement("div");
