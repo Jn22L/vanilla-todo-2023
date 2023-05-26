@@ -60,7 +60,7 @@ const renderData = (todos) => {
 
     // TITLE click event handler
     divTitleLeft.addEventListener("click", () => {
-      renderDetailPage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT });
+      renderDetailPage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT, IMG_URL: todo.IMG_URL });
     });
 
     // ✔️ click event handler
@@ -78,7 +78,7 @@ const renderData = (todos) => {
 
     // ✏️ click event handler
     spanEdit.addEventListener("click", (event) => {
-      renderWritePage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT });
+      renderWritePage({ SEQ: todo.SEQ, TITLE: todo.TITLE, CONTENT: todo.CONTENT, IMG_URL: todo.IMG_URL });
     });
 
     // 🗑️ click event handler
@@ -148,13 +148,24 @@ function removeAllChildNodes(parent) {
 }
 
 function renderDetailPage(obj) {
+  const detailWrapper = document.querySelector("#detail-wrapper");
+
   removeAllChildNodes(document.querySelector(".list-bg"));
   document.querySelector("#write-wrapper").style.display = "none";
-  document.querySelector("#detail-wrapper").style.display = "block";
+  detailWrapper.style.display = "block";
 
   document.querySelector("#detail-SEQ").textContent = obj.SEQ;
   document.querySelector("#detail-TITLE").textContent = obj.TITLE;
   document.querySelector("#detail-CONTENT").textContent = obj.CONTENT;
+
+  if (detailWrapper.querySelector("img")) {
+    detailWrapper.removeChild(detailWrapper.querySelector("img"));
+  }
+  if (obj.IMG_URL) {
+    const img = document.createElement("img");
+    img.src = obj.IMG_URL;
+    detailWrapper.appendChild(img);
+  }
 }
 
 function renderWritePage(obj) {
@@ -164,15 +175,18 @@ function renderWritePage(obj) {
   const inputSEQ = document.querySelector("input[name='SEQ']");
   const inputTITLE = document.querySelector("input[name='TITLE']");
   const inputCONTENT = document.querySelector("input[name='CONTENT']");
+  const inputIMG_URL = document.querySelector("input[name='IMG_URL']");
 
   if (obj) {
     inputSEQ.value = obj.SEQ;
     inputTITLE.value = obj.TITLE;
     inputCONTENT.value = obj.CONTENT;
+    inputIMG_URL.value = obj.IMG_URL;
   } else {
     inputSEQ.value = "";
     inputTITLE.value = "";
     inputCONTENT.value = "";
+    inputIMG_URL.value = "";
   }
 
   const btnSave = document.querySelector("#btn-save");
@@ -190,7 +204,7 @@ function renderWritePage(obj) {
       return;
     }
 
-    saveData([{ IUD_FLAG: "I", TITLE: inputTITLE.value, CONTENT: inputCONTENT.value }]);
+    saveData([{ IUD_FLAG: "I", TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value }]);
   });
 }
 

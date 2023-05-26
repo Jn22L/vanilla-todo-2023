@@ -78,3 +78,9 @@ a {
 .dark-mode .navbar span {
   color: white;
 }
+
+#detail-wrapper img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
