@@ -37,6 +37,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
 .detail-comment-title-container {
   display: flex;
   justify-content: space-between;
@@ -49,9 +50,10 @@ body {
   padding: 20px;
 }
 input {
+  width: 100%;
+  display: block;
   box-sizing: border-box;
   padding: 10px;
-  display: block;
   margin-bottom: 10px;
 }
 button {
@@ -95,8 +97,21 @@ a {
   color: white;
 }
 
+#detail-wrapper p {
+  white-space: pre;
+}
+
 #detail-wrapper img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+#write-wrapper textarea {
+  width: 100%;
+  display: block;
+  resize: none;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
 }

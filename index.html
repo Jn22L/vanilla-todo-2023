@@ -45,9 +45,11 @@
         <h4>글작성</h4>
         <input type="hidden" name="SEQ" value="" />
         <input type="hidden" name="USER_ID" value="" />
-        <input name="TITLE" placeholder="글제목" />
-        <input name="CONTENT" placeholder="글내용" />
-        <input name="IMG_URL" placeholder="이미지경로" />
+        <div>
+          <input name="TITLE" placeholder="글제목" />
+          <textarea name="CONTENT" rows="10" cols="33" placeholder="글내용"></textarea>
+          <input name="IMG_URL" placeholder="이미지경로" />
+        </div>
         <button id="btn-save">저장</button>
       </div>
     </template>

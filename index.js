@@ -377,20 +377,23 @@ function renderWritePage(obj) {
 
   const inputSEQ = document.querySelector("input[name='SEQ']");
   const inputTITLE = document.querySelector("input[name='TITLE']");
-  const inputCONTENT = document.querySelector("input[name='CONTENT']");
+  //const inputCONTENT = document.querySelector("input[name='CONTENT']");
+  const textareaCONTENT = document.querySelector("textarea[name='CONTENT']");
   const inputIMG_URL = document.querySelector("input[name='IMG_URL']");
   const inputUSER_ID = document.querySelector("input[name='USER_ID']");
 
   if (obj) {
     inputSEQ.value = obj.SEQ;
     inputTITLE.value = obj.TITLE;
-    inputCONTENT.value = obj.CONTENT;
+    //inputCONTENT.value = obj.CONTENT;
+    textareaCONTENT.value = obj.CONTENT;
     inputIMG_URL.value = obj.IMG_URL;
     inputUSER_ID.value = obj.USER_ID;
   } else {
     inputSEQ.value = "";
     inputTITLE.value = "";
-    inputCONTENT.value = "";
+    //inputCONTENT.value = "";
+    textareaCONTENT.value = "";
     inputIMG_URL.value = "";
     inputUSER_ID.value = "";
   }
@@ -414,13 +417,13 @@ function renderWritePage(obj) {
       inputTITLE.focus();
       return;
     }
-    if (inputCONTENT.value.trim() === "") {
+    if (textareaCONTENT.value.trim() === "") {
       alert("내용을 입력해 주세요.");
-      inputCONTENT.focus();
+      textareaCONTENT.focus();
       return;
     }
 
-    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
+    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: textareaCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
   });
 }
 
