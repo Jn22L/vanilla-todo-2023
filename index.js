@@ -1,7 +1,7 @@
 //const HOST_NAME = ZnCommon.getHostName();
 const HOST_NAME = "http://localhost:8080";
 let gParentSeq;
-const G_LOGIN_STATE = { isLogin: true, userId: "njlee", userName: "홍길동" };
+const G_LOGIN_STATE = { isLogin: true, userId: "hjlee", userName: "홍길동2" };
 
 /**
  * todo 목록을 조회한다.
@@ -10,7 +10,7 @@ const G_LOGIN_STATE = { isLogin: true, userId: "njlee", userName: "홍길동" };
  */
 const fetchData = async (opt) => {
   let completeYN = opt === "TODO" ? "N" : "Y";
-  console.log("fetchData.url", url);
+  const url = `${HOST_NAME}/paget3l4/select-njboard?SEQ=&COMPLETE_YN=${completeYN}`;
   const response = await fetch(url);
   const data = await response.json();
   return data;
@@ -96,8 +96,10 @@ const renderData = (opt, todos) => {
         return;
       }
 
-      // 로그인 일때만 DB저장
-      toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
+      // 자신의 글일때, 완료 내역 DB저장
+      if (todo.USER_ID === G_LOGIN_STATE.userId) {
+        toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
+      }
     });
 
     // ✏️ click event handler
@@ -106,7 +108,7 @@ const renderData = (opt, todos) => {
         alert("로그인이 필요한 서비스 입니다.");
         return;
       }
-      if (loginChk.LOGIN_USER_ID !== todo.USER_ID) {
+      if (todo.USER_ID != G_LOGIN_STATE.userId) {
         alert("자신의 글만 수정가능 합니다.");
         return;
       }
@@ -124,6 +126,11 @@ const renderData = (opt, todos) => {
 
       if (!G_LOGIN_STATE.isLogin) {
         alert("로그인이 필요한 서비스 입니다.");
+        return;
+      }
+
+      if (todo.USER_ID != G_LOGIN_STATE.userId) {
+        alert("자신의 글만 삭제가능합니다.");
         return;
       }
 
@@ -257,13 +264,22 @@ const renderComment = (comments) => {
         e.target.parentElement.parentElement.parentElement.style.background = "rgb(255, 165, 0)";
         today = new Date().toISOString().substring(0, 10).replace(/-/g, "");
       }
-      //toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
+
+      // 자신의 글일때, 완료 내역 DB저장 -
+      // if (comment.USER_ID != G_LOGIN_STATE.userId) {
+      //   toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
+      // }
     });
 
     // 🗑️ click event handler
     spanDelete.addEventListener("click", (e) => {
       if (!G_LOGIN_STATE.isLogin) {
         alert("로그인이 필요한 서비스 입니다.");
+        return;
+      }
+
+      if (comment.CREATE_USER != G_LOGIN_STATE.userId) {
+        alert("자신의 댓글만 삭제가능합니다.");
         return;
       }
 
@@ -462,7 +478,7 @@ function loadTemplatePage(pageId) {
 async function handleBtnLoginClick(e) {
   G_LOGIN_STATE.isLogin = true;
   G_LOGIN_STATE.userId = "njlee";
-  G_LOGIN_STATE.userName = "홍길동";
+  G_LOGIN_STATE.userName = "홍길동2";
   initPage();
 
   // const { isLoginOK, LOGIN_USER_NAME } = await ZnCommon.isLogin();
@@ -507,10 +523,10 @@ async function initPage() {
   fetchData("TODO").then((json) => renderData("TODO", json));
   if (G_LOGIN_STATE.isLogin) {
     G_LOGIN_STATE.isLogin = true;
-    G_LOGIN_STATE.userId = "njlee";
-    G_LOGIN_STATE.userName = "홍길동";
+    G_LOGIN_STATE.userId = "njlee2";
+    G_LOGIN_STATE.userName = "njlee2";
 
-    document.getElementById("top-login-user-name").innerHTML = "홍길동";
+    document.getElementById("top-login-user-name").innerHTML = G_LOGIN_STATE.userName;
     topBtnGoLogin.textContent = "로그아웃";
   } else {
     G_LOGIN_STATE.isLogin = false;
