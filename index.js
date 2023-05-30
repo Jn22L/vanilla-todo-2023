@@ -1,7 +1,7 @@
 //const HOST_NAME = ZnCommon.getHostName();
 const HOST_NAME = "http://localhost:8080";
 let gParentSeq;
-const G_LOGIN_STATE = { isLogin: true, userId: "hjlee", userName: "홍길동2" };
+const G_LOGIN_STATE = { isLogin: true, userId: "testUser", userName: "testUser" };
 
 /**
  * todo 목록을 조회한다.
@@ -308,7 +308,7 @@ const renderComment = (comments) => {
       inputCONTENT.focus();
       return;
     }
-    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value }]);
+    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
   });
 };
 
@@ -420,7 +420,7 @@ function renderWritePage(obj) {
       return;
     }
 
-    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value }]);
+    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
   });
 }
 
@@ -477,8 +477,8 @@ function loadTemplatePage(pageId) {
 
 async function handleBtnLoginClick(e) {
   G_LOGIN_STATE.isLogin = true;
-  G_LOGIN_STATE.userId = "njlee";
-  G_LOGIN_STATE.userName = "홍길동2";
+  G_LOGIN_STATE.userId = "testUser";
+  G_LOGIN_STATE.userName = "testUser";
   initPage();
 
   // const { isLoginOK, LOGIN_USER_NAME } = await ZnCommon.isLogin();
@@ -523,8 +523,8 @@ async function initPage() {
   fetchData("TODO").then((json) => renderData("TODO", json));
   if (G_LOGIN_STATE.isLogin) {
     G_LOGIN_STATE.isLogin = true;
-    G_LOGIN_STATE.userId = "njlee2";
-    G_LOGIN_STATE.userName = "njlee2";
+    G_LOGIN_STATE.userId = "testUser";
+    G_LOGIN_STATE.userName = "testUser";
 
     document.getElementById("top-login-user-name").innerHTML = G_LOGIN_STATE.userName;
     topBtnGoLogin.textContent = "로그아웃";

@@ -82,7 +82,7 @@ app.post("/paget3l4/save-njboard", function (req, res) {
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
     let IMG_URL = row.IMG_URL;
-    let sql = `INSERT INTO NJ_BOARD(BOARD_ID, TITLE, CONTENT, USER_ID, CREATE_DATE, IMG_URL) VALUES('T3L4', '${TITLE}', '${CONTENT}', 'njlee', ${"NOW()"}, '${IMG_URL}')`;
+    let sql = `INSERT INTO NJ_BOARD(BOARD_ID, TITLE, CONTENT, USER_ID, CREATE_DATE, IMG_URL) VALUES('T3L4', '${TITLE}', '${CONTENT}','${USER_ID}', ${"NOW()"}, '${IMG_URL}')`;
     dbconn.query(sql, function (err, result) {
       if (err) {
         sqlErrMsg.push({ sqlMessage: err.sqlMessage, sql: err.sql });
@@ -97,7 +97,7 @@ app.post("/paget3l4/save-njboard", function (req, res) {
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
     let IMG_URL = row.IMG_URL;
-    let sql = `UPDATE NJ_BOARD SET TITLE = '${TITLE}', CONTENT = '${CONTENT}' , USER_ID = 'njlee' , CREATE_DATE = ${"NOW()"}, IMG_URL = '${IMG_URL}' WHERE SEQ = ${SEQ}`;
+    let sql = `UPDATE NJ_BOARD SET TITLE = '${TITLE}', CONTENT = '${CONTENT}' , USER_ID = ,'${USER_ID}' , CREATE_DATE = ${"NOW()"}, IMG_URL = '${IMG_URL}' WHERE SEQ = ${SEQ}`;
     dbconn.query(sql, function (err, result) {
       if (err) {
         sqlErrMsg.push({ sqlMessage: err.sqlMessage, sql: err.sql });
@@ -166,7 +166,7 @@ app.get("/paget3l4/select-comment", (req, res) => {
  * @return
  */
 app.post("/paget3l4/save-comment", function (req, res) {
-  // console.log("param:", req.body.modifiedRows);
+  console.log("param:", req.body.modifiedRows);
   /*  
     modifiedRows: {
         createdRows: [ {...},{...} ...  ],
@@ -193,7 +193,7 @@ app.post("/paget3l4/save-comment", function (req, res) {
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
     let IMG_URL = row.IMG_URL;
-    let sql = `INSERT INTO NJ_BOARD_COMMENT(PARENT_SEQ, CONTENT, IMG_URL, CREATE_USER, CREATE_DATE) VALUES( ${PARENT_SEQ}, '${CONTENT}', '${IMG_URL}', 'njlee', ${"NOW()"})`;
+    let sql = `INSERT INTO NJ_BOARD_COMMENT(PARENT_SEQ, CONTENT, IMG_URL, CREATE_USER, CREATE_DATE) VALUES( ${PARENT_SEQ}, '${CONTENT}', '${IMG_URL}', '${USER_ID}', ${"NOW()"})`;
 
     dbconn.query(sql, function (err, result) {
       if (err) {
@@ -208,7 +208,7 @@ app.post("/paget3l4/save-comment", function (req, res) {
     let CONTENT = row.CONTENT;
     let USER_ID = row.USER_ID;
     let IMG_URL = row.IMG_URL;
-    let sql = `UPDATE NJ_BOARD_COMMENT SET CONTENT = '${CONTENT}', IMG_URL = '${IMG_URL}, CREATE_USER = 'njlee' , CREATE_DATE = ${"NOW()"}' WHERE SEQ = ${SEQ}`;
+    let sql = `UPDATE NJ_BOARD_COMMENT SET CONTENT = '${CONTENT}', IMG_URL = '${IMG_URL}, CREATE_USER = '${USER_ID}' , CREATE_DATE = ${"NOW()"}' WHERE SEQ = ${SEQ}`;
     dbconn.query(sql, function (err, result) {
       if (err) {
         sqlErrMsg.push({ sqlMessage: err.sqlMessage, sql: err.sql });
