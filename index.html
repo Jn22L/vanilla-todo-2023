@@ -2,28 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="index.js" type="module" defer></script>
-    <title>TodoList</title>
+    <title>TodoList 2023 - HappyJ</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
   </head>
   <body>
-    <div class="navbar"><span id="top-todo">할일</span><span id="top-complete">완료</span><span id="top-new">등록</span><span id="top-darkmode">🌙</span></div>
-    <div id="list-wrapper" class="list-bg"></div>
-    <div id="detail-wrapper" class="p-20" style="display: none">
-      <h4>상세</h4>
-      <h4 id="detail-SEQ"></h4>
-      <h4 id="detail-TITLE"></h4>
-      <p id="detail-CONTENT"></p>
-    </div>
-    <div id="write-wrapper" class="p-20" style="display: none">
-      <h4>글작성</h4>
-      <input type="hidden" name="SEQ" value="" />
-      <input name="TITLE" placeholder="글제목" />
-      <input name="CONTENT" placeholder="글내용" />
-      <input name="IMG_URL" placeholder="이미지경로" />
-      <button id="btn-save">저장</button>
-    </div>
+    <header>
+      <div class="navbar">
+        <span id="top-todo">할일</span><span id="top-complete">완료</span><span id="top-new">등록</span><span id="top-login-user-name">유저명</span
+        ><span><button id="btn-go-login">로그인</button></span><span id="top-darkmode">🌙</span>
+      </div>
+    </header>
+    <article></article>
+    <footer></footer>
+    <!--------------------- 목록 페이지--------------------->
+    <template id="list-page">
+      <div id="list-wrapper" class="list-bg"></div>
+    </template>
+    <!--------------------- 상세 페이지--------------------->
+    <template id="detail-page">
+      <div id="detail-wrapper" class="p-20">
+        <h4 id="detail-TITLE"></h4>
+        <hr />
+        <div class="detail-content-title-container">
+          <span id="detail-USER_NAME"></span>
+          <span id="detail-CREATE_DATE"></span>
+        </div>
+        <p id="detail-CONTENT"></p>
+        <img id="detail-IMG_URL" />
+        <div id="comment-list-wrapper"></div>
+        <div id="comment-input-wrapper">
+          <hr />
+          <input id="comment-CONTENT" placeholder="댓글 내용" />
+          <input id="comment-IMG_URL" placeholder="댓글 이미지경로" />
+          <button id="btn-comment-save">댓글달기</button>
+        </div>
+      </div>
+    </template>
+    <!--------------------- 입력/수정 페이지--------------------->
+    <template id="write-page">
+      <div id="write-wrapper" class="p-20">
+        <h4>글작성</h4>
+        <input type="hidden" name="SEQ" value="" />
+        <input type="hidden" name="USER_ID" value="" />
+        <input name="TITLE" placeholder="글제목" />
+        <input name="CONTENT" placeholder="글내용" />
+        <input name="IMG_URL" placeholder="이미지경로" />
+        <button id="btn-save">저장</button>
+      </div>
+    </template>
+    <!--------------------- 로그인 페이지--------------------->
+    <template id="login-page">
+      <div id="login-wrapper" class="p-20">
+        <h4>로그인</h4>
+        <input name="USER_ID" placeholder="아이디" />
+        <input type="password" name="USER_PW" placeholder="패스워드" />
+        <button id="btn-login">로그인</button>
+      </div>
+    </template>
+    <script src="index.js" type="module"></script>
   </body>
 </html>

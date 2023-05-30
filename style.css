@@ -28,6 +28,22 @@ body {
   color: grey;
   margin: 5px 0px;
 }
+.list-item span {
+  color: grey;
+  margin: 5px 0px;
+}
+
+.detail-content-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+.detail-comment-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+.detail-comment-title-container span {
+  padding: 0px 5px 0px 0px;
+}
 
 .p-20 {
   padding: 20px;
