@@ -50,15 +50,25 @@ article {
 }
 
 .p-20 {
-  padding: 20px;
+  padding: 1rem;
 }
 input {
+  font-family: inherit;
+  font-size: inherit;
   width: 100%;
   display: block;
   box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
   padding: 10px;
   margin-bottom: 10px;
 }
+input:focus {
+  border-color: #5db0ff;
+  outline: 0;
+  box-shadow: 0 0 0 0.125rem rgba(52, 142, 227, 0.3);
+}
+
 button {
   padding: 10px 15px;
   background: lightgray;
@@ -110,10 +120,20 @@ a {
 }
 
 #write-wrapper textarea {
+  font-family: inherit;
+  font-size: inherit;
   width: 100%;
   display: block;
   resize: none;
   box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+#write-wrapper textarea:focus {
+  border-color: #5db0ff;
+  outline: 0;
+  box-shadow: 0 0 0 0.125rem rgba(52, 142, 227, 0.3);
 }
