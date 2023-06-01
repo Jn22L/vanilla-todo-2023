@@ -1,7 +1,7 @@
 //const HOST_NAME = ZnCommon.getHostName();
 const HOST_NAME = "http://localhost:8080";
 let gParentSeq;
-const G_LOGIN_STATE = { isLogin: true, userId: "testUser", userName: "testUser" };
+const G_LOGIN_STATE = { isLogin: true, userId: "testUser", userName: "testUser", selectedTopMenu: "TODO" };
 
 /**
  * todo 목록을 조회한다.
@@ -350,6 +350,7 @@ function removeAllChildNodes(parent) {
 
 function renderDetailPage(obj) {
   loadTemplatePage("#detail-page");
+  history.pushState("detail-page", null, "index.html");
 
   document.querySelector("#detail-TITLE").textContent = obj.TITLE;
   document.querySelector("#detail-USER_NAME").textContent = obj.USER_NAME;
@@ -522,6 +523,9 @@ async function handleLogout() {
 
 // 로그아웃, 로그인시 refresh
 async function initPage() {
+  G_LOGIN_STATE.selectedTopMenu = "TODO";
+  history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
+
   const topBtnGoLogin = document.querySelector("#btn-go-login");
   fetchData("TODO").then((json) => renderData("TODO", json));
   if (G_LOGIN_STATE.isLogin) {
@@ -550,10 +554,14 @@ function init() {
   const topDarkmode = document.querySelector("#top-darkmode");
 
   topTodo.addEventListener("click", (e) => {
+    G_LOGIN_STATE.selectedTopMenu = "TODO";
+    history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
     fetchData("TODO").then((json) => renderData("TODO", json));
   });
 
   topComplete.addEventListener("click", (e) => {
+    G_LOGIN_STATE.selectedTopMenu = "COMPLETE";
+    history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
     fetchData("COMPLETE").then((json) => renderData("COMPLETE", json));
   });
 
@@ -586,6 +594,12 @@ function init() {
 
   setDarkmode(getCookie("darkmode"));
   initPage();
+
+  //뒤로가기 이벤트
+  window.onpopstate = function (event) {
+    let prevListPage = G_LOGIN_STATE.selectedTopMenu || "TODO";
+    fetchData(prevListPage).then((json) => renderData(prevListPage, json));
+  };
 }
 
 init();
