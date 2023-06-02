@@ -1,7 +1,7 @@
 //const HOST_NAME = ZnCommon.getHostName();
 const HOST_NAME = "http://localhost:8080";
 let gParentSeq;
-const G_LOGIN_STATE = { isLogin: true, userId: "testUser", userName: "testUser", selectedTopMenu: "TODO" };
+const G_USER_STATE = { isLogin: true, userId: "testUser", userName: "testUser", selectedTopMenu: "TODO" };
 
 /**
  * todo 목록을 조회한다.
@@ -13,7 +13,7 @@ const fetchData = async (opt) => {
   const url = `${HOST_NAME}/paget3l4/select-njboard?SEQ=&COMPLETE_YN=${completeYN}`;
   const response = await fetch(url);
   const data = await response.json();
-  return data;
+   return data;
 };
 
 /**
@@ -91,24 +91,24 @@ const renderData = (opt, todos) => {
         e.target.parentElement.parentElement.parentElement.style.background = "rgb(255, 165, 0)";
         today = new Date().toISOString().substring(0, 10).replace(/-/g, "");
       }
-      if (!G_LOGIN_STATE.isLogin) {
+      if (!G_USER_STATE.isLogin) {
         //alert("로그인이 필요한 서비스 입니다.");
         return;
       }
 
       // 자신의 글일때, 완료 내역 DB저장
-      if (todo.USER_ID === G_LOGIN_STATE.userId) {
+      if (todo.USER_ID === G_USER_STATE.userId) {
         toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
       }
     });
 
     // ✏️ click event handler
     spanEdit.addEventListener("click", (event) => {
-      if (!G_LOGIN_STATE.isLogin) {
+      if (!G_USER_STATE.isLogin) {
         alert("로그인이 필요한 서비스 입니다.");
         return;
       }
-      if (todo.USER_ID != G_LOGIN_STATE.userId) {
+      if (todo.USER_ID != G_USER_STATE.userId) {
         alert("자신의 글만 수정가능 합니다.");
         return;
       }
@@ -124,12 +124,12 @@ const renderData = (opt, todos) => {
         return;
       }
 
-      if (!G_LOGIN_STATE.isLogin) {
+      if (!G_USER_STATE.isLogin) {
         alert("로그인이 필요한 서비스 입니다.");
         return;
       }
 
-      if (todo.USER_ID != G_LOGIN_STATE.userId) {
+      if (todo.USER_ID != G_USER_STATE.userId) {
         alert("자신의 글만 삭제가능합니다.");
         return;
       }
@@ -266,19 +266,19 @@ const renderComment = (comments) => {
       }
 
       // 자신의 글일때, 완료 내역 DB저장 -
-      // if (comment.USER_ID != G_LOGIN_STATE.userId) {
+      // if (comment.USER_ID != G_USER_STATE.userId) {
       //   toggleComplete({ SEQ: todo.SEQ, COMPLETE_DATE: today });
       // }
     });
 
     // 🗑️ click event handler
     spanDelete.addEventListener("click", (e) => {
-      if (!G_LOGIN_STATE.isLogin) {
+      if (!G_USER_STATE.isLogin) {
         alert("로그인이 필요한 서비스 입니다.");
         return;
       }
 
-      if (comment.CREATE_USER != G_LOGIN_STATE.userId) {
+      if (comment.CREATE_USER != G_USER_STATE.userId) {
         alert("자신의 댓글만 삭제가능합니다.");
         return;
       }
@@ -298,7 +298,7 @@ const renderComment = (comments) => {
   if (btnCommentSave.classList.contains("once1")) return; // 이벤트핸들러 중복등록 체크
   btnCommentSave.classList.add("once1");
   btnCommentSave.addEventListener("click", (e) => {
-    if (!G_LOGIN_STATE.isLogin) {
+    if (!G_USER_STATE.isLogin) {
       alert("로그인이 필요한 서비스 입니다.");
       return;
     }
@@ -308,7 +308,7 @@ const renderComment = (comments) => {
       inputCONTENT.focus();
       return;
     }
-    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
+    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_USER_STATE.userId }]);
   });
 };
 
@@ -403,13 +403,13 @@ function renderWritePage(obj) {
   if (btnSave.classList.contains("once1")) return; // 이벤트핸들러 중복등록 체크
   btnSave.classList.add("once1");
   btnSave.addEventListener("click", (e) => {
-    if (!G_LOGIN_STATE.isLogin) {
+    if (!G_USER_STATE.isLogin) {
       alert("로그인이 필요한 서비스 입니다.");
       return;
     }
     let iudFlag = inputSEQ.value > 0 ? "U" : "I";
 
-    if (iudFlag === "U" && G_LOGIN_STATE.userId !== document.querySelector("input[name='USER_ID']").value) {
+    if (iudFlag === "U" && G_USER_STATE.userId !== document.querySelector("input[name='USER_ID']").value) {
       alert("자신의 글만 수정가능 합니다.");
       return;
     }
@@ -424,7 +424,7 @@ function renderWritePage(obj) {
       return;
     }
 
-    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: textareaCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_LOGIN_STATE.userId }]);
+    saveData([{ IUD_FLAG: iudFlag, SEQ: inputSEQ.value, TITLE: inputTITLE.value, CONTENT: textareaCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_USER_STATE.userId }]);
   });
 }
 
@@ -480,9 +480,9 @@ function loadTemplatePage(pageId) {
 }
 
 async function handleBtnLoginClick(e) {
-  G_LOGIN_STATE.isLogin = true;
-  G_LOGIN_STATE.userId = "testUser";
-  G_LOGIN_STATE.userName = "testUser";
+  G_USER_STATE.isLogin = true;
+  G_USER_STATE.userId = "testUser";
+  G_USER_STATE.userName = "testUser";
   initPage();
 
   // const { isLoginOK, LOGIN_USER_NAME } = await ZnCommon.isLogin();
@@ -501,9 +501,9 @@ async function handleBtnLoginClick(e) {
   // }
   // if (!isLoginOK) {
   //   const loginRet = await ZnCommon.loginPw(inputUSER_ID.value, CryptoJS.SHA256(inputUSER_PW.value).toString().toUpperCase()); // 로그인 진행
-  //   G_LOGIN_STATE.isLogin = loginRet.isLoginOK;
-  //   G_LOGIN_STATE.userId = loginRet.LOGIN_USER_ID;
-  //   G_LOGIN_STATE.userName = loginRet.LOGIN_USER_NAME;
+  //   G_USER_STATE.isLogin = loginRet.isLoginOK;
+  //   G_USER_STATE.userId = loginRet.LOGIN_USER_ID;
+  //   G_USER_STATE.userName = loginRet.LOGIN_USER_NAME;
   //   if (loginRet.isLoginOK) {
   //     initPage();
   //   }
@@ -514,31 +514,31 @@ async function handleLogout() {
   if (!confirm("로그아웃 할까요?")) return;
   //const ret = await ZnCommon.logout();
   //if (JSON.parse(ret).RST_MSG === "저장성공") {
-  G_LOGIN_STATE.isLogin = false;
-  G_LOGIN_STATE.userId = "";
-  G_LOGIN_STATE.userName = "";
+  G_USER_STATE.isLogin = false;
+  G_USER_STATE.userId = "";
+  G_USER_STATE.userName = "";
   initPage();
   //}
 }
 
 // 로그아웃, 로그인시 refresh
 async function initPage() {
-  G_LOGIN_STATE.selectedTopMenu = "TODO";
-  history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
+  G_USER_STATE.selectedTopMenu = "TODO";
+  history.pushState(G_USER_STATE.selectedTopMenu, null, "index.html");
 
   const topBtnGoLogin = document.querySelector("#btn-go-login");
   fetchData("TODO").then((json) => renderData("TODO", json));
-  if (G_LOGIN_STATE.isLogin) {
-    G_LOGIN_STATE.isLogin = true;
-    G_LOGIN_STATE.userId = "testUser";
-    G_LOGIN_STATE.userName = "testUser";
+  if (G_USER_STATE.isLogin) {
+    G_USER_STATE.isLogin = true;
+    G_USER_STATE.userId = "testUser";
+    G_USER_STATE.userName = "testUser";
 
-    document.getElementById("top-login-user-name").innerHTML = G_LOGIN_STATE.userName;
+    document.getElementById("top-login-user-name").innerHTML = G_USER_STATE.userName;
     topBtnGoLogin.textContent = "로그아웃";
   } else {
-    G_LOGIN_STATE.isLogin = false;
-    G_LOGIN_STATE.userId = "";
-    G_LOGIN_STATE.userName = "";
+    G_USER_STATE.isLogin = false;
+    G_USER_STATE.userId = "";
+    G_USER_STATE.userName = "";
 
     document.getElementById("top-login-user-name").innerHTML = "";
     topBtnGoLogin.textContent = "로그인";
@@ -554,14 +554,14 @@ function init() {
   const topDarkmode = document.querySelector("#top-darkmode");
 
   topTodo.addEventListener("click", (e) => {
-    G_LOGIN_STATE.selectedTopMenu = "TODO";
-    history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
+    G_USER_STATE.selectedTopMenu = "TODO";
+    history.pushState(G_USER_STATE.selectedTopMenu, null, "index.html");
     fetchData("TODO").then((json) => renderData("TODO", json));
   });
 
   topComplete.addEventListener("click", (e) => {
-    G_LOGIN_STATE.selectedTopMenu = "COMPLETE";
-    history.pushState(G_LOGIN_STATE.selectedTopMenu, null, "index.html");
+    G_USER_STATE.selectedTopMenu = "COMPLETE";
+    history.pushState(G_USER_STATE.selectedTopMenu, null, "index.html");
     fetchData("COMPLETE").then((json) => renderData("COMPLETE", json));
   });
 
@@ -597,7 +597,7 @@ function init() {
 
   //뒤로가기 이벤트
   window.onpopstate = function (event) {
-    let prevListPage = G_LOGIN_STATE.selectedTopMenu || "TODO";
+    let prevListPage = G_USER_STATE.selectedTopMenu || "TODO";
     fetchData(prevListPage).then((json) => renderData(prevListPage, json));
   };
 }
