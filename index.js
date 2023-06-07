@@ -13,7 +13,7 @@ const fetchData = async (opt) => {
   const url = `${HOST_NAME}/paget3l4/select-njboard?SEQ=&COMPLETE_YN=${completeYN}`;
   const response = await fetch(url);
   const data = await response.json();
-   return data;
+  return data;
 };
 
 /**
@@ -289,9 +289,9 @@ const renderComment = (comments) => {
     });
   });
 
-  const inputCONTENT = document.querySelector("#comment-CONTENT");
+  const taCONTENT = document.querySelector("#comment-CONTENT");
   const inputIMG_URL = document.querySelector("#comment-IMG_URL");
-  inputCONTENT.value = "";
+  taCONTENT.value = "";
   inputIMG_URL.value = "";
 
   const btnCommentSave = document.querySelector("#btn-comment-save");
@@ -303,12 +303,12 @@ const renderComment = (comments) => {
       return;
     }
 
-    if (inputCONTENT.value.trim() === "") {
+    if (taCONTENT.value.trim() === "") {
       alert("내용을 입력해 주세요.");
-      inputCONTENT.focus();
+      taCONTENT.focus();
       return;
     }
-    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: inputCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_USER_STATE.userId }]);
+    saveComment([{ IUD_FLAG: "I", PARENT_SEQ: gParentSeq, CONTENT: taCONTENT.value, IMG_URL: inputIMG_URL.value, USER_ID: G_USER_STATE.userId }]);
   });
 };
 
@@ -378,7 +378,7 @@ function renderWritePage(obj) {
 
   const inputSEQ = document.querySelector("input[name='SEQ']");
   const inputTITLE = document.querySelector("input[name='TITLE']");
-  //const inputCONTENT = document.querySelector("input[name='CONTENT']");
+  //const taCONTENT = document.querySelector("input[name='CONTENT']");
   const textareaCONTENT = document.querySelector("textarea[name='CONTENT']");
   const inputIMG_URL = document.querySelector("input[name='IMG_URL']");
   const inputUSER_ID = document.querySelector("input[name='USER_ID']");
@@ -386,14 +386,14 @@ function renderWritePage(obj) {
   if (obj) {
     inputSEQ.value = obj.SEQ;
     inputTITLE.value = obj.TITLE;
-    //inputCONTENT.value = obj.CONTENT;
+    //taCONTENT.value = obj.CONTENT;
     textareaCONTENT.value = obj.CONTENT;
     inputIMG_URL.value = obj.IMG_URL;
     inputUSER_ID.value = obj.USER_ID;
   } else {
     inputSEQ.value = "";
     inputTITLE.value = "";
-    //inputCONTENT.value = "";
+    //taCONTENT.value = "";
     textareaCONTENT.value = "";
     inputIMG_URL.value = "";
     inputUSER_ID.value = "";
