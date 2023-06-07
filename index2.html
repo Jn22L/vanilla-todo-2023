@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="myPopover" popover>
+      <ul>
+        <li>메뉴1</li>
+        <li>메뉴2</li>
+        <li>메뉴3</li>
+      </ul>
+    </div>
+    <button type="button" popovertarget="myPopover">이 버튼을 누르면 메시지가 나타나거나 사라집니다.</button>
+    <button type="button" popovertarget="myPopover" popovertargetaction="show">이 버튼을 누르면 메시지가 나타납니다.</button>
+    <button type="button" popovertarget="myPopover" popovertargetaction="hide">이 버튼을 누르면 메시지가 사라집니다.</button>
+    <button type="button" popovertarget="myPopover" popovertargetaction="toggle">이 버튼을 누르면 메시지가 나타나거나 사라집니다.</button>
+  </body>
+  <script>
+    const popover = document.getElementById("myPopover");
+
+    popover.showPopover();
+    console.log(popover.matches(":open")); // true
+    popover.hidePopover();
+    console.log(popover.matches(":open")); // false
+    popover.togglePopover();
+    console.log(popover.matches(":open")); // true
+  </script>
+</html>
