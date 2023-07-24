@@ -577,6 +577,7 @@ function init() {
 
     loadTemplatePage("#login-page");
     const topBtnLogin = document.querySelector("#btn-login");
+
     document.querySelector("input[name='USER_ID']").focus();
 
     if (topBtnLogin.classList.contains("once1")) return; // 이벤트핸들러 중복등록 체크
@@ -585,6 +586,13 @@ function init() {
     topBtnLogin.addEventListener("click", (e) => {
       handleBtnLoginClick();
     });
+
+    document.querySelector("input[name='USER_PW']").addEventListener("keyup", function (ev) {
+      if (ev.keyCode === 13) {
+        topBtnLogin.click();
+      }
+    });
+
   });
 
   topDarkmode.addEventListener("click", (e) => {
